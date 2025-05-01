@@ -213,8 +213,8 @@ class VideoDownloader: KoinComponent {
 
         val startIndex = jsCode.indexOf("window[")
         val lastIndex = jsCode.lastIndexOf("));")
-        Logger.debug("startIdx: " + startIdx)
-        Logger.debug("lastIndex: " + lastIndex)
+        Logger.debug("startIndex: " + startIndex.toString())
+        Logger.debug("lastIndex: " + lastIndex.toString())
         
         val stringToReplace = jsCode.substring(startIndex, lastIndex)
         Logger.debug("stringToReplace: " + stringToReplace)
