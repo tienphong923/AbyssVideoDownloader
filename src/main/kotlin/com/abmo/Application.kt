@@ -39,7 +39,8 @@ class Application(private val args: Array<String>) : KoinComponent {
 
             val dispatcher = providerDispatcher.getProviderForUrl(videoUrl)
             val videoID = dispatcher.getVideoID(videoUrl)
-            val defaultHeader = if (videoUrl.isValidUrl()) { mapOf("Referer" to videoUrl.extractReferer()) } else { emptyMap() }
+            //val defaultHeader = if (videoUrl.isValidUrl()) { mapOf("Referer" to videoUrl.extractReferer()) } else { emptyMap() }
+            val defaultHeader = mapOf("Referer" to "https://abysscdn.com/?v=e-uJAuZeV")
             val url = "$ABYSS_BASE_URL/?v=$videoID"
             val videoMetadata = videoDownloader.getVideoMetaData(url, headers ?: defaultHeader)
             val videoSources = videoMetadata?.sources
