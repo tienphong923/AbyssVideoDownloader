@@ -196,12 +196,13 @@ class VideoDownloader: KoinComponent {
            .find { it.html().contains("subtitle") }
            ?.html()
 
-        Logger.debug(jsCode)
         if (jsCode == null) {
             Logger.debug("No encrypted video metadata found in the provided HTML.", true)
             return null
         }
 
+        Logger.debug(jsCode!)
+        
         val functionsRegex = """\b([A-Za-z0-9]{4,5})\b\s*:\s*(function\s*\([^)]*\)\s*\{[^}]*}|[^,]+)""".toRegex(RegexOption.DOT_MATCHES_ALL)
         val newVarRegex = """window\[.*?\b([a-zA-Z_$][\w$]*)\b.*?async\s*\(\)""".toRegex(RegexOption.DOT_MATCHES_ALL)
         val potatoRegex = """(\}\s*)(\w+\(\),\s*)""".toRegex(RegexOption.MULTILINE)
