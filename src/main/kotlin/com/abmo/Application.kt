@@ -46,7 +46,7 @@ class Application(private val args: Array<String>) : KoinComponent {
                 ?.sortedBy { it?.label?.filter { char -> char.isDigit() }?.toIntOrNull() }
 
             Logger.info("URL: '$url'")
-            Logger.info(videoMetadata)
+            Logger.info("Headers: " + defaultHeader)
             
             if (videoSources == null) {
                 Logger.error("Video with ID $videoID not found")
