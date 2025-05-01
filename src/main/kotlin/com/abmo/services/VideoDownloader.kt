@@ -201,7 +201,7 @@ class VideoDownloader: KoinComponent {
             return null
         }
 
-        Logger.debug(jsCode!)
+        Logger.debug("$jsCode")
         
         val functionsRegex = """\b([A-Za-z0-9]{4,5})\b\s*:\s*(function\s*\([^)]*\)\s*\{[^}]*}|[^,]+)""".toRegex(RegexOption.DOT_MATCHES_ALL)
         val newVarRegex = """window\[.*?\b([a-zA-Z_$][\w$]*)\b.*?async\s*\(\)""".toRegex(RegexOption.DOT_MATCHES_ALL)
