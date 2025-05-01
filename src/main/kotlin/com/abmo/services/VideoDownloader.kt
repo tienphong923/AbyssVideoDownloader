@@ -181,6 +181,7 @@ class VideoDownloader: KoinComponent {
 
         val encryptedData = response.body
         val responseCode = response.status
+        Logger.debug("Encrypted: " + encryptedData)
         Logger.debug("Received response with status $responseCode", responseCode !in 200..299)
 
         val encryptedVideoData = extractEncryptedVideoMetaData(encryptedData)
@@ -205,16 +206,24 @@ class VideoDownloader: KoinComponent {
         val potatoRegex = """(\}\s*)(\w+\(\),\s*)""".toRegex(RegexOption.MULTILINE)
 
         val matches = functionsRegex.findAll(jsCode)
+        Logger.debug("Matches: " + matches)
         val parts = matches.filterNot { it.value.contains("function") }
             .maxBy { it.value.length }.groupValues[2]
+        Logger.debug("parts: " + parts)
 
         val startIndex = jsCode.indexOf("window[")
         val lastIndex = jsCode.lastIndexOf("));")
+        Logger.debug("startIdx: " + startIdx)
+        Logger.debug("lastIndex: " + lastIndex)
+        
         val stringToReplace = jsCode.substring(startIndex, lastIndex)
+        Logger.debug("stringToReplace: " + stringToReplace)
         val newScript = jsCode.replace(stringToReplace, "")
             .replaceLast("));", "")
+        Logger.debug("newScript: " + newScript)
         val cleanedCode = potatoRegex.replace(newScript) { match ->
             match.groupValues[1]
+        Logger.debug("newScript: " + cleanedCode)
         }
 
         val newVariableName = newVarRegex.find(stringToReplace)?.groupValues?.get(1) ?: return null
