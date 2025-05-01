@@ -196,6 +196,7 @@ class VideoDownloader: KoinComponent {
            .find { it.html().contains("subtitle") }
            ?.html()
 
+        Logger.debug(jsCode)
         if (jsCode == null) {
             Logger.debug("No encrypted video metadata found in the provided HTML.", true)
             return null
@@ -213,8 +214,8 @@ class VideoDownloader: KoinComponent {
 
         val startIndex = jsCode.indexOf("window[")
         val lastIndex = jsCode.lastIndexOf("));")
-        Logger.debug("startIndex: $startIndex ")
-        Logger.debug("lastIndex: $lastIndex ")
+        //Logger.debug("startIndex: $startIndex ")
+        //Logger.debug("lastIndex: $lastIndex ")
         
         val stringToReplace = jsCode.substring(startIndex, lastIndex)
         Logger.debug("stringToReplace: " + stringToReplace)
@@ -223,7 +224,7 @@ class VideoDownloader: KoinComponent {
         Logger.debug("newScript: " + newScript)
         val cleanedCode = potatoRegex.replace(newScript) { match ->
             match.groupValues[1]
-        Logger.debug("newScript: $cleanedCode ")
+        //Logger.debug("newScript: $cleanedCode ")
         }
 
         val newVariableName = newVarRegex.find(stringToReplace)?.groupValues?.get(1) ?: return null
