@@ -225,8 +225,9 @@ class VideoDownloader: KoinComponent {
         Logger.debug("newScript: " + newScript)
         val cleanedCode = potatoRegex.replace(newScript) { match ->
             match.groupValues[1]
-        //Logger.debug("newScript: $cleanedCode ")
         }
+
+        Logger.debug("cleanedCode: $cleanedCode ")
 
         val newVariableName = newVarRegex.find(stringToReplace)?.groupValues?.get(1) ?: return null
         val oldVariableName = parts.substringBefore("(")
@@ -235,6 +236,8 @@ class VideoDownloader: KoinComponent {
 
         val javascriptCodeToExecute = cleanedCode.plus("\n java.lang.System.out.println($funParts)")
 
+        Logger.debug("javascriptCodeToExecute: $javascriptCodeToExecute ")
+        
         return javaScriptExecutor.runJavaScriptCode(
             javascriptCode = javascriptCodeToExecute
         )
