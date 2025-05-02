@@ -181,7 +181,7 @@ class VideoDownloader: KoinComponent {
 
         //val encryptedData = response.body
         val f1 = File("1111.htm")
-        val encryptedData = f1.readBytes();
+        val encryptedData = f1.readText(Charsets.UTF_8);
         val responseCode = response.status
         Logger.debug("Encrypted: " + encryptedData)
         Logger.debug("Received response with status $responseCode", responseCode !in 200..299)
