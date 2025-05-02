@@ -12,14 +12,12 @@ import org.koin.core.component.inject
 import org.koin.core.parameter.parametersOf
 import java.io.File
 import kotlin.system.exitProcess
-import com.abmo.crypto.CryptoHelper
 
 class Application(private val args: Array<String>) : KoinComponent {
 
     private val videoDownloader: VideoDownloader by inject()
     private val providerDispatcher: ProviderDispatcher by inject()
     private val cliArguments: CliArguments by inject { parametersOf(args) }
-    private val cryptoHelper: CryptoHelper by inject()
     
     suspend fun run() {
         
@@ -28,16 +26,6 @@ class Application(private val args: Array<String>) : KoinComponent {
         val numberOfConnections = cliArguments.getParallelConnections()
         val videoIdsOrUrls = cliArguments.getVideoIdsOrUrlsWithResolutions()
         Constants.VERBOSE = cliArguments.isVerboseEnabled()
-
-
-        val decryptionKey = cryptoHelper.getKey(63828857)
-        val file1 = File("1234.mp4")
-        val data1 = file1.readBytes()
-        val ttt = cryptoHelper.decryptAESCTR(data1, decryptionKey)
-
-        val file2 = File("1111.mp4")
-        file2.writeBytes(ttt)
-        
         
         if (outputFileName != null) {
             if (!isValidPath(outputFileName)) {
